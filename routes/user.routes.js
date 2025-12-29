@@ -37,7 +37,7 @@ userRouter.post("/signup",async (req,res) => {
     }
 })
 
-userRouter.post("/sigin",async (req,res) => {
+userRouter.post("/signin",async (req,res) => {
     // input validation 
 
     const {email,password} = req.body;
@@ -50,8 +50,8 @@ userRouter.post("/sigin",async (req,res) => {
                 message: "This user does not exist."
             })
         } 
-        const passwordMatch = bcrypt.compare(password,user.password);
-        if(password){
+        const passwordMatch = await bcrypt.compare(password,user.password);
+        if(passwordMatch){
             const token = jwt.sign({
                 userId: user._id
             },process.env.JWT_SECRET_KEY)

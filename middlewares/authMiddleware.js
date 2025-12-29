@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken")
 async function userAuth(req,res,next){
-    const token = req.headers.authorisation;
+    const token = req.headers.authorization;
     const decodedInfo = await jwt.verify(token,process.env.JWT_SECRET_KEY);
     const userId = decodedInfo.userId;
     if(userId){
