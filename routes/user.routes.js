@@ -4,12 +4,11 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const { z } = require("zod");
 const { userModel } = require("../db");
+const { signupValidation } = require("../middlewares/validation");
 
 const userRouter = Router();
 
-userRouter.post("/signup",async (req,res) => {
-    // add input validation logic
-
+userRouter.post("/signup",signupValidation, async (req,res) => {
     const {username,email,firstName,lastName,password} = req.body;
     try{
         const hashedPassword = await bcrypt.hash(password,10);

@@ -55,6 +55,19 @@ AQIRouter.get("/getAQItrend",async (req,res) => {
     }
 })
 
+AQIRouter.get("/getcityavg",async (req,res) => {
+    const city = req.query.city;
+    const response = await axios.get(`${AQI_URL}/latest/by-city?city=${city}`,{
+        headers : {
+            "x-api-key" : X_API_KEY
+        }
+    })
+    const cityAQI = response.data.stations[0].AQI
+    return res.status(200).json({
+        cityAQI
+    })
+})
+
 module.exports = {
     AQIRouter
 }
